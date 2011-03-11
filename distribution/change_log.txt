@@ -1,3 +1,33 @@
+19/11/2010
+- bugfix on block plugins with modifiers
+
+18/11/2010
+- change on handling of unassigned template variable -- default will drop E_NOTICE
+- bugfix on Smarty2 wrapper load_filter() did not work
+
+17/11/2010
+- bugfix on {call} with variable function name
+- bugfix on {block} if name did contain '-'
+- bugfix in function.fetch.php , referece to undefined $smarty
+
+16/11/2010
+- bugfix whitespace in front of "<?php" in smarty_internal_compile_private_block_plugin.php
+- bugfix {$smarty.now} did compile incorrectly
+- bugfix on reset(),end(),next(),prev(),current() within templates
+- bugfix on default parameter for {function}
+
+15/11/2010
+- bugfix when using {$smarty.session} as object
+- bugfix scoping problem on $smarty object passed to filters
+- bugfix captured content could not be accessed globally
+- bugfix Smarty2 wrapper functions could not be call from within plugins
+
+14/11/2010
+- bugfix isset() did not allow multiple parameter
+- improvment of some error messages
+- bugfix html_image did use removed property $request_use_auto_globals
+- small performace patch in Smarty class
+
 13/11/2010
 - bugfix  overloading problem when $smarty->fetch()/display() have been used in plugins
 				(introduced with 3.0.2)
@@ -34,7 +64,7 @@
 
 09/11/2010
 -bugfix on  complex expressions as start value for {for} tag
-
+request_use_auto_globals
 04/11/2010
 - bugfix do not allow access of dynamic and private object members of assigned objects when
   security is enabled.
