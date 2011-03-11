@@ -5,7 +5,7 @@
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -43,7 +43,7 @@
  * Purpose:  outputs a random magic answer
  * -------------------------------------------------------------
  */
-function smarty_function_eightball($params, $smarty)
+function smarty_function_eightball($params, $template)
 {
     $answers = array('Yes',
                      'No',
@@ -82,7 +82,7 @@ Answer: {eightball}.
  * Purpose:  assign a value to a template variable
  * -------------------------------------------------------------
  */
-function smarty_function_assign($params, $smarty)
+function smarty_function_assign($params, $template)
 {
     if (empty($params['var'])) {
         $smarty->triggerError("assign: missing 'var' parameter");
@@ -94,7 +94,8 @@ function smarty_function_assign($params, $smarty)
         return;
     }
 
-    $smarty->assign($params['var'], $params['value']);
+    $template->assign($params['var'], $params['value']);     
+    
 }
 ?>
 ]]>
