@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 2972 $ -->
+<!-- $Revision: 3837 $ -->
    <sect1 id="plugins.functions"><title>Template Functions</title>
     <funcsynopsis>
      <funcprototype>
@@ -24,8 +24,8 @@
     <para>
      If the function needs to assign some variables to the template or use
      some other Smarty-provided functionality, it can use the supplied
-     <parameter>$smarty</parameter> object to do so eg
-     <literal>$smarty->foo()</literal>.
+     <parameter>$template</parameter> object to do so eg
+     <literal>$template->foo()</literal>.
     </para>
 
     <para>
@@ -85,12 +85,12 @@ Answer: {eightball}.
 function smarty_function_assign($params, $template)
 {
     if (empty($params['var'])) {
-        $smarty->triggerError("assign: missing 'var' parameter");
+        trigger_error("assign: missing 'var' parameter");
         return;
     }
 
     if (!in_array('value', array_keys($params))) {
-        $smarty->triggerError("assign: missing 'value' parameter");
+        trigger_error("assign: missing 'value' parameter");
         return;
     }
 

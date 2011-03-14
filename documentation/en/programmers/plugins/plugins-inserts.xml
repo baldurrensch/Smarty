@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 2972 $ -->
+<!-- $Revision: 3836 $ -->
    <sect1 id="plugins.inserts"><title>Inserts</title>
     <para>
      Insert plugins are used to implement functions that are invoked by
@@ -10,7 +10,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -39,7 +39,7 @@
 function smarty_insert_time($params, $smarty)
 {
     if (empty($params['format'])) {
-        $smarty->triggerError("insert time: missing 'format' parameter");
+        trigger_error("insert time: missing 'format' parameter");
         return;
     }
     return strftime($params['format']);
