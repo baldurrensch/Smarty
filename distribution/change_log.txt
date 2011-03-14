@@ -1,4 +1,59 @@
 ===== SVN trunk  =====
+09/02/2011
+- bugfix removed security hole when using {$smarty.template}
+
+01/02/2011
+- removed assert() from config and template parser
+
+31/01/2011
+- bugfix the lexer/parser did fail on special characters like VT
+
+16/01/2011
+-bugfix of ArrayAccess object handling in internal _count() method
+-bugfix of Iterator object handling in internal _count() method
+
+14/01/2011
+-bugfix removed memory leak while processing compileAllTemplates
+
+12/01/2011
+- bugfix in {if} and {while} tag compiler when using assignments as condition and nocache mode
+
+10/01/2011
+- bugfix when using {$smarty.block.child} and name of {block} was in double quoted string
+- bugfix updateParentVariables() was called twice when leaving {include} processing
+
+- bugfix mb_str_replace in replace and escape modifiers work with utf8
+
+31/12/2010
+- bugfix dynamic configuration of $debugging_crtl did not work
+- bugfix default value of $config_read_hidden changed to false
+- bugfix format of attribute array on compiler plugins
+- bugfix getTemplateVars() could return value from wrong scope
+
+28/12/2010
+- bugfix multiple {append} tags failed to compile.
+
+22/12/2010
+- update do not clone the Smarty object an internal createTemplate() calls to increase performance
+
+21/12/2010
+- update html_options to support class and id attrs
+
+17/12/2010
+- bugfix added missing support of $cache_attrs for registered plugins
+
+15/12/2010
+- bugfix assignment as condition in {while} did drop an E_NOTICE
+
+14/12/2010
+- bugfix when passing an array as default parameter at {function} tag
+
+13/12/2010
+- bugfix {$smarty.template} in child template did not return right content
+- bugfix Smarty3 did not search the PHP include_path for template files
+
+===== Smarty 3.0.6  =====
+
 12/12/2010
 - bugfix fixed typo regarding yesterdays change to allow streamWrapper
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3850 $ -->
+<!-- $Revision: 3982 $ -->
 <sect1 id="advanced.features.template.inheritance">
  <title>Template Inheritance</title>
  <para>
@@ -51,7 +51,7 @@
 <html>
 <head>
   <title>{block name=title}Default Page Title{/block}</title>
-  <span style="color: blue">{block name=head}{/block}</span>
+  {block name=head}{/block}
 </head>
 <body>
 {block name=body}{/block}
@@ -70,10 +70,10 @@
 ]]>
 
   </programlisting>
-   <para>myproject.tpl (grandchild)</para>
+   <para>mypage.tpl (grandchild)</para>
    <programlisting>
 <![CDATA[
-{extends file='project.tpl'}
+{extends file='myproject.tpl'}
 {block name=title}My Page Title{/block}
 {block name=head}
   <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
