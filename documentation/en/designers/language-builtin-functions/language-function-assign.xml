@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3827 $ -->
+<!-- $Revision: 4508 $ -->
 <sect1 id="language.function.assign">
  <title>{assign}</title>
   <para>
@@ -73,7 +73,7 @@
    <tbody>
     <row>
      <entry>nocache</entry>
-     <entry>Assingns the variable with the 'nocache' attribute</entry>
+     <entry>Assigns the variable with the 'nocache' attribute</entry>
     </row>    
    </tbody>
   </tgroup>
@@ -167,7 +167,7 @@ The value of $name is Bob.
  
  <example>
   <title>{assign} a global variable</title>
-  <para>A glkobal variable is seen by all templates.</para>
+  <para>A global variable is seen by all templates.</para>
   <programlisting>
 <![CDATA[
 {assign var=foo value="bar" scope="global"}

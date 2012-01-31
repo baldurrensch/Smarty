@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3827 $ -->
-<chapter id="resources">
+<!-- $Revision: 4278 $ -->
+<chapter id="inforesources">
  <title>Resources</title>
  <para>Smarty's homepage is located at
  <ulink url="&url.smarty;">&url.smarty;</ulink>

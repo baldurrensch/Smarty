@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3827 $ -->
+<!-- $Revision: 4396 $ -->
 <refentry id="api.create.template">
  <refnamediv>
   <refname>createTemplate()</refname>
@@ -8,24 +8,24 @@
  <refsect1>
   <title>Description</title>
   <methodsynopsis>
-   <type>string</type><methodname>createTemplate</methodname>
+   <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>object</type><parameter>parent</parameter></methodparam>
   </methodsynopsis>
   <methodsynopsis>
-    <type>string</type><methodname>createTemplate</methodname>
+    <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
     <methodparam><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>array</type><parameter>data</parameter></methodparam>
    </methodsynopsis>
    <methodsynopsis>
-    <type>string</type><methodname>createTemplate</methodname>
+    <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
     <methodparam><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
     <methodparam choice="opt"><type>object</type><parameter>parent</parameter></methodparam>
    </methodsynopsis>
    <methodsynopsis>
-    <type>string</type><methodname>createTemplate</methodname>
+    <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
     <methodparam><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
@@ -39,7 +39,7 @@
      <listitem>
       <para>
        <parameter>template</parameter> must be a valid 
-       <link linkend="template.resources">template resource</link> type and path. 
+       <link linkend="resources">template resource</link> type and path. 
       </para>
      </listitem>
      &parameter.cacheid;

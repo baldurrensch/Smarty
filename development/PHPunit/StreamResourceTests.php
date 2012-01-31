@@ -1,9 +1,9 @@
 <?php
 /**
 * Smarty PHPunit tests for stream resources
-* 
+*
 * @package PHPunit
-* @author Uwe Tews 
+* @author Uwe Tews
 */
 
 /**
@@ -21,17 +21,17 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase {
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');
         fclose($fp);
-    } 
+    }
 
     public function tearDown()
     {
         stream_wrapper_unregister("global");
-    } 
+    }
 
     public static function isRunnable()
     {
         return true;
-    } 
+    }
 
     /**
     * test getTemplateFilepath
@@ -39,40 +39,40 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase {
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertEquals('global://mytest', $tpl->getTemplateFilepath());
-    } 
+        $this->assertEquals('global://mytest', $tpl->source->filepath);
+    }
     /**
     * test getTemplateTimestamp
     */
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->getTemplateTimestamp());
-    } 
+        $this->assertFalse($tpl->source->timestamp);
+    }
     /**
     * test getTemplateSource
     */
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('global:mytest', null, null, $this->smarty);
-        $this->assertEquals('hello world {$foo}', $tpl->getTemplateSource());
-    } 
+        $this->assertEquals('hello world {$foo}', $tpl->source->content);
+    }
     /**
     * test usesCompiler
     */
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->resource_object->usesCompiler);
-    } 
+        $this->assertFalse($tpl->source->uncompiled);
+    }
     /**
     * test isEvaluated
     */
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->resource_object->isEvaluated);
-    } 
+        $this->assertTrue($tpl->source->recompiled);
+    }
     /**
     * test mustCompile
     */
@@ -80,92 +80,58 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
         $this->assertTrue($tpl->mustCompile());
-    } 
+    }
     /**
     * test getCompiledFilepath
     */
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->getCompiledFilepath());
-    } 
+        $this->assertFalse($tpl->compiled->filepath);
+    }
     /**
     * test getCompiledTimestamp
     */
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->getCompiledTimestamp());
-    } 
-    /**
-    * test getCompiledTemplate
-    */
-    public function testGetCompiledTemplate()
-    {
-        $tpl = $this->smarty->createTemplate('global:mytest');
-        $result = $tpl->getCompiledTemplate();
-        $this->assertContains('hello world', $result);
-        $this->assertContains('<?php /* Smarty version ', $result);
-    } 
-    /**
-    * test getCachedFilepath
-    */
-    public function testGetCachedFilepath()
-    {
-        $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->getCachedFilepath());
-    } 
-    /**
-    * test getCachedTimestamp
-    */
-    public function testGetCachedTimestamp()
-    {
-        $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->getCachedTimestamp());
-    } 
+        $this->assertFalse($tpl->compiled->timestamp);
+    }
     /**
     * test template file exits
     */
     public function testTemplateStreamExists1()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->isExisting());
-    } 
+        $this->assertTrue($tpl->source->exists);
+    }
     public function testTemplateStreamExists2()
     {
         $this->assertTrue($this->smarty->templateExists('global:mytest'));
-    } 
+    }
     /**
     * test template is not existing
     */
     public function testTemplateStreamNotExists1()
     {
         $tpl = $this->smarty->createTemplate('global:notthere');
-        $this->assertFalse($tpl->isExisting());
-    } 
+        $this->assertFalse($tpl->source->exists);
+    }
     public function testTemplateStramNotExists2()
     {
         $this->assertFalse($this->smarty->templateExists('global:notthere'));
-    } 
+    }
     public function testTemplateStramNotExists3()
     {
         try {
             $result = $this->smarty->fetch('global:notthere');
-        } 
+        }
         catch (Exception $e) {
             $this->assertContains('Unable to load template global \'notthere\'', $e->getMessage());
             return;
-        } 
+        }
         $this->fail('Exception for not existing template is missing');
-    } 
-    /**
-    * test getCachedContent
-    */
-    public function testGetCachedContent()
-    {
-        $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->getCachedContent());
-    } 
+    }
     /**
     * test writeCachedContent
     */
@@ -173,7 +139,7 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
         $this->assertFalse($tpl->writeCachedContent('dummy'));
-    } 
+    }
     /**
     * test isCached
     */
@@ -181,29 +147,29 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
         $this->assertFalse($tpl->isCached());
-    } 
+    }
     /**
     * test getRenderedTemplate
     */
     public function testGetRenderedTemplate()
     {
         $tpl = $this->smarty->createTemplate('global:mytest' , null, null, $this->smarty);
-        $this->assertEquals('hello world bar', $tpl->getRenderedTemplate());
-    } 
+        $this->assertEquals('hello world bar', $tpl->fetch());
+    }
     /**
     * test that no complied template and cache file was produced
     */
     public function testNoFiles()
     {
         $this->smarty->caching = true;
-        $this->smarty->caching_lifetime = 20;
+        $this->smarty->cache_lifetime = 20;
         $this->smarty->clearCompiledTemplate();
         $this->smarty->clearAllCache();
         $tpl = $this->smarty->createTemplate('global:mytest', null, null, $this->smarty);
         $this->assertEquals('hello world bar', $this->smarty->fetch($tpl));
         $this->assertEquals(0, $this->smarty->clearAllCache());
         $this->assertEquals(0, $this->smarty->clearCompiledTemplate());
-    } 
+    }
 
     /**
     * test $smarty->is_cached
@@ -211,12 +177,12 @@ class StreamResourceTests extends PHPUnit_Framework_TestCase {
     public function testSmartyIsCached()
     {
         $this->smarty->caching = true;
-        $this->smarty->caching_lifetime = 20;
+        $this->smarty->cache_lifetime = 20;
         $tpl = $this->smarty->createTemplate('global:mytest', null, null, $this->smarty);
         $this->assertEquals('hello world bar', $this->smarty->fetch($tpl));
         $this->assertFalse($this->smarty->isCached($tpl));
-    } 
-} 
+    }
+}
 
 class ResourceStream {
     private $position;
@@ -227,14 +193,14 @@ class ResourceStream {
         $this->varname = $url["host"];
         $this->position = 0;
         return true;
-    } 
+    }
     public function stream_read($count)
     {
         $p = &$this->position;
         $ret = substr($GLOBALS[$this->varname], $p, $count);
         $p += strlen($ret);
         return $ret;
-    } 
+    }
     public function stream_write($data)
     {
         $v = &$GLOBALS[$this->varname];
@@ -242,18 +208,18 @@ class ResourceStream {
         $p = &$this->position;
         $v = substr($v, 0, $p) . $data . substr($v, $p += $l);
         return $l;
-    } 
+    }
     public function stream_tell()
     {
         return $this->position;
-    } 
+    }
     public function stream_eof()
     {
         if (!isset($GLOBALS[$this->varname])) {
             return true;
-        } 
+        }
         return $this->position >= strlen($GLOBALS[$this->varname]);
-    } 
+    }
     public function stream_seek($offset, $whence)
     {
         $l = strlen($GLOBALS[$this->varname]);
@@ -266,11 +232,11 @@ class ResourceStream {
             case SEEK_END: $newPos = $l + $offset;
                 break;
             default: return false;
-        } 
+        }
         $ret = ($newPos >= 0 && $newPos <= $l);
         if ($ret) $p = $newPos;
         return $ret;
-    } 
-} 
+    }
+}
 
 ?>

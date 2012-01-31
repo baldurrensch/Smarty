@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3923 $ -->
+<!-- $Revision: 4278 $ -->
 <sect1 id="language.function.block">
  <title>{block}</title>
 
@@ -66,10 +66,14 @@
      <entry>append</entry>
      <entry>The <varname>{block}</varname> content will be be appended to the content of the parent template <varname>{block}</varname></entry>
     </row>    
-    <row>
-     <entry>prepend</entry>
-     <entry>The <varname>{block}</varname> content will be prepended to the content of the parent template <varname>{block}</varname></entry>
-    </row>    
+     <row>
+       <entry>prepend</entry>
+       <entry>The <varname>{block}</varname> content will be prepended to the content of the parent template <varname>{block}</varname></entry>
+     </row>    
+     <row>
+       <entry>hide</entry>
+       <entry>Ignore the block content if no child block of same name is existing.</entry>
+     </row>    
      <row>
        <entry>nocache</entry>
        <entry>Disables caching of the <varname>{block}</varname> content</entry>
@@ -205,7 +209,7 @@ Child Title
 <![CDATA[
 <html>
   <head>
-    <title>The - Child Title - was inserted here</title>
+    <title>The Child Title was inserted here</title>
   </head>
 </html>
 ]]>

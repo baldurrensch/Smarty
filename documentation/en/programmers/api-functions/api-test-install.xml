@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3827 $ -->
+<!-- $Revision: 4278 $ -->
 <refentry id="api.test.install">
  <refnamediv>
   <refname>testInstall()</refname>
@@ -12,7 +12,7 @@
    <void />
   </methodsynopsis>
   <para>
-   This function verifies that all required working folders of the Smarty installtion can be accessed.
+   This function verifies that all required working folders of the Smarty installation can be accessed.
    It does output a corresponding protocoll.
   </para>
   <example>
@@ -21,6 +21,7 @@
 <![CDATA[
 <?php
 require_once('Smarty.class.php');
+$smarty  = new Smarty();
 $smarty->testInstall();
 ?>
 ]]>

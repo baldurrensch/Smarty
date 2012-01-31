@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3827 $ -->
+<!-- $Revision: 4289 $ -->
 <bookinfo id="bookinfo">
   <title>Smarty - the compiling PHP template engine</title>
   <authorgroup id="authors">
@@ -14,7 +14,7 @@
   </authorgroup>
   <pubdate>&build-date;</pubdate>
   <copyright>
-   <year>2001-2010</year>
+   <year>2001-2011</year>
    <holder>New Digital Group, Inc.</holder>
   </copyright>
  </bookinfo>

@@ -32,7 +32,8 @@ class Smarty_Internal_Configfilelexer
         $this->counter = 0;
         $this->line = 1;
         $this->smarty = $smarty; 
-     }
+        $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
+    }
     public static function &instance($new_instance = null)
     {
         static $instance = null;
@@ -48,7 +49,7 @@ class Smarty_Internal_Configfilelexer
 %token $this->token
 %value $this->value
 %line $this->line
-commentstart = /#/
+commentstart = /#|;/
 openB = /\[/
 closeB = /\]/
 section = /.*?(?=[\.=\[\]\r\n])/
@@ -57,12 +58,14 @@ whitespace = /[ \t\r]+/
 dot = /\./
 id = /[0-9]*[a-zA-Z_]\w*/
 newline = /\n/
-single_quoted_string = /'[^'\\]*(?:\\.[^'\\]*)*'(?=[ \t\r]*[\n#])/
-double_quoted_string = /"[^"\\]*(?:\\.[^"\\]*)*"(?=[ \t\r]*[\n#])/
-tripple_double_quoted_string = /"""[^"\\]*(?:\\.[^"\\]*)*"""(?=[ \t\r]*[\n#])/
-float = /\d+\.\d+(?=[ \t\r]*[\n#])/
-int = /\d+(?=[ \t\r]*[\n#])/
-maybe_bool = /[a-zA-Z]+(?=[ \t\r]*[\n#])/
+single_quoted_string = /'[^'\\]*(?:\\.[^'\\]*)*'(?=[ \t\r]*[\n#;])/
+double_quoted_string = /"[^"\\]*(?:\\.[^"\\]*)*"(?=[ \t\r]*[\n#;])/
+tripple_quotes = /"""/
+tripple_quotes_end = /"""(?=[ \t\r]*[\n#;])/
+text = /[\S\s]/
+float = /\d+\.\d+(?=[ \t\r]*[\n#;])/
+int = /\d+(?=[ \t\r]*[\n#;])/
+maybe_bool = /[a-zA-Z]+(?=[ \t\r]*[\n#;])/
 naked_string = /[^\n]+?(?=[ \t\r]*\n)/
 */
 
@@ -93,6 +96,9 @@ newline {
 id {
     $this->token = Smarty_Internal_Configfileparser::TPC_ID;
 }
+text {
+    $this->token = Smarty_Internal_Configfileparser::TPC_OTHER;
+}
 
 */
 
@@ -110,16 +116,16 @@ int {
     $this->token = Smarty_Internal_Configfileparser::TPC_INT;
     $this->yypopstate();
 }
+tripple_quotes {
+    $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_QUOTES;
+    $this->yypushstate(self::TRIPPLE);
+}
 single_quoted_string {
     $this->token = Smarty_Internal_Configfileparser::TPC_SINGLE_QUOTED_STRING;
     $this->yypopstate();
 }
 double_quoted_string {
     $this->token = Smarty_Internal_Configfileparser::TPC_DOUBLE_QUOTED_STRING;
-    $this->yypopstate();
-}
-tripple_double_quoted_string {
-    $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_DOUBLE_QUOTED_STRING;
     $this->yypopstate();
 }
 maybe_bool {
@@ -181,6 +187,24 @@ section {
     $this->yypopstate();
 }
 
+*/
+/*!lex2php
+%statename TRIPPLE
+
+tripple_quotes_end {
+    $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_QUOTES_END;
+    $this->yypopstate();
+    $this->yypushstate(self::START);
+}
+text {
+  $to = strlen($this->data);
+  preg_match("/\"\"\"[ \t\r]*[\n#;]/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+  if (isset($match[0][1])) {
+    $to = $match[0][1];
+  }
+  $this->value = substr($this->data,$this->counter,$to-$this->counter);
+  $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_TEXT;
+}
 */
 
 }

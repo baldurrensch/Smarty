@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3848 $ -->
+<!-- $Revision: 4314 $ -->
 <part id="getting.started">
  <title>Getting Started</title>
 
@@ -144,14 +144,7 @@
    </listitem>
    <listitem>
     <para>
-     Arbitrary <link linkend="template.resources">template</link> sources
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Custom <link
-     linkend="section.template.cache.handler.func">cache handling</link>
-     functions
+     Arbitrary <link linkend="resources">template</link> sources
     </para>
    </listitem>
    <listitem>
@@ -506,10 +499,10 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
 
 $smarty = new Smarty();
 
-$smarty->template_dir = '/web/www.example.com/guestbook/templates/';
-$smarty->compile_dir  = '/web/www.example.com/guestbook/templates_c/';
-$smarty->config_dir   = '/web/www.example.com/guestbook/configs/';
-$smarty->cache_dir    = '/web/www.example.com/guestbook/cache/';
+$smarty->setTemplateDir('/web/www.example.com/guestbook/templates/');
+$smarty->setCompileDir('/web/www.example.com/guestbook/templates_c/');
+$smarty->setConfigDir('/web/www.example.com/guestbook/configs/');
+$smarty->setCacheDir('/web/www.example.com/guestbook/cache/');
 
 $smarty->assign('name','Ned');
 
@@ -596,10 +589,10 @@ class Smarty_GuestBook extends Smarty {
 
         parent::__construct();
 
-        $this->template_dir = '/web/www.example.com/guestbook/templates/';
-        $this->compile_dir  = '/web/www.example.com/guestbook/templates_c/';
-        $this->config_dir   = '/web/www.example.com/guestbook/configs/';
-        $this->cache_dir    = '/web/www.example.com/guestbook/cache/';
+        $this->setTemplateDir('/web/www.example.com/guestbook/templates/');
+        $this->setCompileDir('/web/www.example.com/guestbook/templates_c/');
+        $this->setConfigDir('/web/www.example.com/guestbook/configs/');
+        $this->setCacheDir('/web/www.example.com/guestbook/cache/');
 
         $this->caching = Smarty::CACHING_LIFETIME_CURRENT;
         $this->assign('app_name', 'Guest Book');

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision: 3827 $ -->
+<!-- $Revision: 4475 $ -->
    <sect1 id="plugins.compiler.functions"><title>Compiler Functions</title>
     <para>
      Compiler functions are called only during compilation of the template.
@@ -11,15 +11,14 @@
     <funcsynopsis>
      <funcprototype>
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>string <parameter>$tag_arg</parameter></paramdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-     The compiler function is passed three parameters: the tag argument
-     string - basically, everything from the function name until the ending
-     delimiter, the Smarty and template object. It's supposed to return the PHP code
-     to be injected into the compiled template.
+     The compiler function is passed two parameters: the params array which contains precompiled
+     strings for the attribute values and the Smarty object. It's supposed to return the code
+     to be injected into the compiled template including the surrounding PHP tags.
     </para>
 
     <example>
@@ -37,9 +36,9 @@
  *           the time it was compiled.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, $smarty)
+function smarty_compiler_tplheader($params, Smarty $smarty)
 {
-    return "\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';";
+    return "<?php\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';\n?>";
 }
 ?>
 ]]>
